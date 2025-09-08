@@ -1,0 +1,14 @@
+type Feedback {
+  id: ID!
+  rating: Int!
+  comment: String!
+  user: String!
+  video: Video!
+}
+
+input FeedbackInput {
+  rating: Int!
+  comment: String!
+  user: String!
+  videoId: ID!
+}
