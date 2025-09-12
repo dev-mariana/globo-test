@@ -1,6 +1,7 @@
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { fetchVideosResolver } from "~/resolvers/fetch-videos.resolver";
 
 const typeDefs = [
   readFileSync(join(__dirname, "video.graphql"), "utf8"),
@@ -11,5 +12,9 @@ const typeDefs = [
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: {},
+  resolvers: {
+    Query: {
+      videos: fetchVideosResolver,
+    },
+  },
 });
