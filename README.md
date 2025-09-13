@@ -11,7 +11,7 @@ A GraphQL-based backend API for managing videos and user feedback, built with No
 - **Docker Support**: Containerized deployment with Docker Compose
 - **TypeScript**: Full type safety and modern JavaScript features
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Technical Decisions
 
 ### Project Structure
 
@@ -55,12 +55,87 @@ src/
     └── fetch-feedback-by-video-id.service.ts
 ```
 
-### Design Patterns
+### Architectural Decisions
 
-- **Repository Pattern**: Clean separation between data access and business logic
-- **Service Layer**: Business logic encapsulation
-- **DTO Pattern**: Type-safe data transfer between layers
-- **Dependency Injection**: Loose coupling between components
+#### Layered Architecture
+
+- **Why**: Clear separation of concerns for maintainability and testability
+- **Implementation**: Three distinct layers - Presentation (resolvers), Business Logic (services), Data Access (repositories)
+- **Benefits**: Easy to test individual layers, swap implementations, and scale
+
+#### Schema-First GraphQL Approach
+
+- **Why**: Define API contract first, then implement resolvers
+- **Implementation**: Separate `.graphql` files for types, queries, and mutations
+- **Benefits**: Self-documenting API, better client-server contract, easier frontend development
+
+#### Repository Pattern
+
+- **Why**: Abstracts data access logic from business logic
+- **Implementation**: Interface + implementation for each entity
+- **Benefits**: Easy to swap data sources, testable, follows SOLID principles
+
+#### Service Layer Architecture
+
+- **Why**: Encapsulates business logic separately from data access
+- **Implementation**: Services orchestrate repositories and transform data using DTOs
+- **Benefits**: Reusable business logic, easier unit testing, single responsibility
+
+#### DTO (Data Transfer Object) Pattern
+
+- **Why**: Type-safe data contracts between layers
+- **Implementation**: Separate DTOs for requests/responses, transforming DB models to API responses
+- **Benefits**: Prevents data leakage, ensures API stability, clear data contracts
+
+### Technology Choices & Reasoning
+
+#### Node.js 22
+
+- **Why**: Latest LTS with improved V8 performance and ES modules support
+- **Benefits**: Better memory management, faster startup, modern JavaScript features
+- **Decision**: Chosen for performance and ecosystem maturity
+
+#### TypeScript
+
+- **Why**: Type safety and better developer experience
+- **Configuration**: Strict mode with path mapping (`~/*` aliases)
+- **Benefits**: Catch errors at compile time, better IntelliSense, self-documenting code
+
+#### GraphQL over REST
+
+- **Why**: Single endpoint, type-safe queries, efficient data fetching
+- **Implementation**: Apollo Server with schema-first approach
+- **Benefits**: Clients request only needed data, reduces over-fetching, built-in documentation
+
+#### MongoDB with Mongoose
+
+- **Why**: Document-based storage fits GraphQL's flexible nature
+- **Implementation**: Mongoose ODM for type safety and validation
+- **Benefits**: Schema evolution, horizontal scaling, native JSON support
+
+#### Express.js
+
+- **Why**: Minimal, unopinionated framework
+- **Benefits**: Lightweight, flexible, large ecosystem
+- **Decision**: Simple setup for GraphQL integration
+
+#### Zod for Validation
+
+- **Why**: Runtime type validation and schema parsing
+- **Benefits**: Type-safe validation, better error messages, schema inference
+- **Decision**: Chosen over Joi for TypeScript integration
+
+#### Biome over ESLint + Prettier
+
+- **Why**: Single tool for linting and formatting
+- **Benefits**: Faster execution, simpler configuration, unified rules
+- **Decision**: Modern alternative with better performance
+
+#### Docker & Docker Compose
+
+- **Why**: Consistent development and deployment environment
+- **Benefits**: Easy setup, reproducible builds, production parity
+- **Decision**: Standard containerization approach
 
 ## 🛠️ Tech Stack
 
@@ -275,21 +350,13 @@ npm run lint
 }
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📝 License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+MIT
 
 ## 👨‍💻 Author
 
-**Mariana Bastos** - [GitHub Profile](https://github.com/mariana-bastos)
+**Mariana Bastos**
 
 ---
 
