@@ -6,4 +6,8 @@ export class FeedbackRepository implements IFeedbackRepository {
   async create(feedback: Partial<Feedback>): Promise<Feedback> {
     return await FeedbackModel.create(feedback);
   }
+
+  async findByVideoId(videoId: string): Promise<Feedback[]> {
+    return await FeedbackModel.find({ video: videoId });
+  }
 }

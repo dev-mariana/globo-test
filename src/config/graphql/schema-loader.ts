@@ -2,6 +2,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { createFeedbackResolver } from "~/resolvers/create-feedback.resolver";
+import { fetchFeedbackByVideoResolver } from "~/resolvers/fetch-feedback-by-video.resolver";
 import { fetchVideosResolver } from "~/resolvers/fetch-videos.resolver";
 
 const typeDefs = [
@@ -16,6 +17,7 @@ export const schema = makeExecutableSchema({
   resolvers: {
     Query: {
       videos: fetchVideosResolver,
+      feedbackByVideo: fetchFeedbackByVideoResolver,
     },
     Mutation: {
       createFeedback: createFeedbackResolver,
