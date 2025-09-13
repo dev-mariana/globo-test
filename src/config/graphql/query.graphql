@@ -1,4 +1,4 @@
 type Query {
   videos: [Video!]!
-  feedbacks(videoId: ID!): [Feedback!]!
+  feedbackByVideo(videoId: ID!): [Feedback!]!
 }
