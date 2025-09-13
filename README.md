@@ -159,7 +159,7 @@ src/
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/dev-mariana/globo-test
 cd globo-test
 ```
 
@@ -174,9 +174,9 @@ npm install
 Create a `.env` file in the root directory:
 
 ```env
-NODE_ENV=development
-MONGODB_URI=mongodb://root:root123@localhost:27017/feedback-platform?authSource=admin
-PORT=8080
+NODE_ENV=
+MONGODB_URI=
+PORT=
 ```
 
 ### 4. Start MongoDB (Docker)
@@ -273,31 +273,6 @@ mutation CreateFeedback($input: FeedbackInput!) {
 - `user: String!` - Username
 - `video: Video!` - Associated video
 
-## 🐳 Docker Deployment
-
-### Using Docker Compose
-
-```bash
-# Start all services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-### Manual Docker Build
-
-```bash
-# Build image
-docker build -t globo-test .
-
-# Run container
-docker run -p 8080:8080 --env-file .env globo-test
-```
-
 ## 🧪 Development
 
 ### Available Scripts
@@ -323,7 +298,7 @@ npm run lint
 | ------------- | ------------------------- | ------------- |
 | `NODE_ENV`    | Environment mode          | `development` |
 | `MONGODB_URI` | MongoDB connection string | Required      |
-| `PORT`        | Server port               | `8080`        |
+| `PORT`        | Server port               | `3000`        |
 
 ### Database Schema
 
